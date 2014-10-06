@@ -9,7 +9,7 @@
 
 ## Prerequisites
 Make sure you have installed all these prerequisites on your development machine.
-* Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager, if you encounter any problems
+* Node.js - [Download & Install Node.js](http://www.nodejs.org/download/)
 * MongoDB - [Download & Install MongoDB](http://www.mongodb.org/downloads), and make sure it's running on the default port (27017). 
 ```
 $ sudo brew update
@@ -39,7 +39,7 @@ $ git clone https://github.com/jhullfly/BetterFriendsServer BetterFriendsServer
 ```
 
 ###Install dependencies
-To install Node.js dependencies in the application folder run this in the command-line:
+To install dependencies in the application folder run this in the command-line:
 
 ```
 $ npm install
@@ -61,4 +61,4 @@ Your application should run on the 3000 port so in your browser just go to [http
                             
 ## Running on mobile
 
-<TODO>
+TODO

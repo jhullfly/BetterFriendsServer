@@ -1,5 +1,5 @@
 
-## Good references docs. 
+## Good reference docs. 
 * MongoDB - Go through [MongoDB Official Website](http://mongodb.org/) and proceed to their [Official Manual](http://docs.mongodb.org/manual/), which should help you understand NoSQL and MongoDB better.
 * Express - The best way to understand express is through its [Official Website](http://expressjs.com/), particularly [The Express Guide](http://expressjs.com/guide.html); you can also go through this [StackOverflow Thread](http://stackoverflow.com/questions/8144214/learning-express-for-node-js) for more resources.
 * AngularJS - Angular's [Official Website](http://angularjs.org/) is a great starting point. You can also use [Thinkster Popular Guide](http://www.thinkster.io/), and the [Egghead Videos](https://egghead.io/).
@@ -38,7 +38,7 @@ $ npm install -g cordova ionic
 $ git clone https://github.com/jhullfly/BetterFriendsServer BetterFriendsServer
 ```
 
-## Quick Install
+###Install dependencies
 To install Node.js dependencies in the application folder run this in the command-line:
 
 ```

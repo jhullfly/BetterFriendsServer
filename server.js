@@ -22,9 +22,6 @@ var db = mongoose.connect(config.db, function(err) {
 // Init the express application
 var app = require('./config/express')(db);
 
-// Bootstrap passport config
-require('./config/passport')();
-
 // Start the app by listening on <port>
 app.listen(config.port);
 
@@ -32,4 +29,4 @@ app.listen(config.port);
 exports = module.exports = app;
 
 // Logging initialization
-console.log('MEAN.JS application started on port ' + config.port);
+console.log('Better Friends application started on port ' + config.port);

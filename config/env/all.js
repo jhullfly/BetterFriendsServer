@@ -23,14 +23,18 @@ module.exports = {
 		css: [
 			'public/modules/**/css/*.css'
 		],
-		dynamicjs: [
+        // this is handled specially because loading order is very important.
+        // and cordova.js is not coming from the public directory.
+		cordovajs: [
+            'modules/ngCordova/ng-cordova.js',
+            'modules/ngCordova/ng-cordova-mocks.js',
             'platforms/cordova.js',
             'platforms/cordovaSetup.js'
         ],
         js: [
             'public/config.js',
 			'public/application.js',
-			'public/modules/*/*.js',
+			'public/modules/*[!ngCordova]*/*.js',
 			'public/modules/*/*[!tests]*/*.js'
 		],
 		tests: [

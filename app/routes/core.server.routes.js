@@ -1,4 +1,5 @@
 'use strict';
+(function() {
 
 var uaParser = require('ua-parser');
 
@@ -14,3 +15,5 @@ module.exports = function(app) {
     // these files are different by platform so we generate them dynamically
     app.get('/platforms/*', uaMiddleware, core.platforms);
 };
+
+})();

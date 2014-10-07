@@ -11,16 +11,16 @@ angular.module('core').controller('ComposeCtrl',
             };
 
             $cordovaSms.send(messageInfo).then(function(message) {
-                if (index == 0) {
+                if (index === 0) {
                     $scope.sendSms(index+1);
                 } else {
                     $scope.sending_status = 'Sent messages to '+$scope.invitedContacts[0].name.formatted +
                         ' and ' + $scope.invitedContacts[1].name.formatted;
                 }
             }, function(error) {
-                $scope.sending_status = "error: " + JSON.stringify(error);
+                $scope.sending_status = 'error: ' + JSON.stringify(error);
             });
-        }
+        };
         if (!invited.getContacts() || invited.getContacts().length < 2) {
             $state.go('invite');
         }
@@ -28,4 +28,4 @@ angular.module('core').controller('ComposeCtrl',
         $scope.message1 = 'Hey wanna grab drinks with me at the Lone Palm. Monday? 8pm? Reply here: http://blaa';
         $scope.message2 = $scope.message1;
         $scope.sending_status = null;
-    })
+    });

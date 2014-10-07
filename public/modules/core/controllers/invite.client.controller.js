@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 angular.module('core').controller('InviteCtrl',
     function($scope, $cordovaContacts, $timeout, $state, $ionicPlatform, invited) {
         $scope.status_contacts = 'Loading Contacts...';

@@ -1,15 +1,19 @@
-.content {
-	margin-top: 50px;
+/* Empty. Add your own CSS if you like */
+
+.phoneType {
+    color: #aaa;
+    font-size: 14px;
 }
-.undecorated-link:hover {
-	text-decoration: none;
+
+.invite-item {
+    padding: 5px;
+    padding-left: 10px;
 }
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+
+.invite-item h2 {
+    margin: 0px;
 }
-.ng-invalid.ng-dirty{
-    border-color:#FA787E;
-}
-.ng-valid.ng-dirty{
-    border-color:#78FA89;
+
+.invite-item p {
+    margin: 0px;
 }

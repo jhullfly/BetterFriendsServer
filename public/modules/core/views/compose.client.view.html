@@ -1,0 +1,27 @@
+<ion-view title="Better Friends">
+    <ion-content class="padding">
+        <h1 class="text-center">Monday Night</h1>
+        <h2 class="text-center">Lone Palm, 8pm</h2>
+        <div class="padding" ng-show="!sending_status">
+            Customize your message:
+            <div class="list">
+                To: {{invitedContacts[0].name.formatted}}
+                <label class="item item-input">
+                    <textarea rows="5" ng-model="message1"></textarea>
+                </label>
+            </div>
+            <div class="list">
+                To: {{invitedContacts[1].name.formatted}}
+                <label class="item item-input">
+                    <textarea rows="5" ng-model="message2"></textarea>
+                </label>
+            </div>
+            <button class="button button-balanced" ng-click="sendSms(0)">
+                Send Texts
+            </button>
+        </div>
+        <div class="padding" ng-show="sending_status">
+            {{sending_status}}
+        </div>
+    </ion-content>
+</ion-view>

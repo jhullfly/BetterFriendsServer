@@ -54,7 +54,7 @@ module.exports = function(db) {
 	app.set('showStackError', true);
 
 	// Set swig as the template engine
-	app.engine('server.view.html', consolidate[config.templateEngine]);
+    app.engine('server.view.html', consolidate[config.templateEngine]);
 
 	// Set views path and view engine
 	app.set('view engine', 'server.view.html');

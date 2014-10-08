@@ -61,4 +61,4 @@ Your application should run on the 3000 port so in your browser just go to [http
                             
 ## Running on mobile
 
-TODO
+Get the client app and follow the instructions there https://github.com/jhullfly/BetterFriendsClient

@@ -6,31 +6,50 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>{{title}}</title>
-    <!-- fav icon -->
-    <link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
-
-    <!--application css files-->
-    {% for cssfile in cssFiles %}<link rel="stylesheet" href="{{cssfile}}">
-    {% endfor %}
-
-    <!--Application JavaScript Files-->
-    {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
-    {% endfor %}
+    <script type="text/javascript" src="cordova.js"></script>
 </head>
 
 <body ng-app="betterfriends">
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-        <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
-            Back
-        </ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
-
+<span ui-view></span>
+<span id="debug"></span>
+<script>
+    var BASE_URL = '';
+    // not using libraries because we don't want dependencies for startup code.
+    var debug = document.getElementById('debug');
+    function fetchScript(src) {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = false;
+        s.src = src;
+        document.head.appendChild(s);
+    }
+    function fetchCss(href) {
+        var s = document.createElement("link");
+        s.type = 'text/css';
+        s.rel = 'stylesheet';
+        s.href = href;
+        document.head.appendChild(s);
+    }
+    function configure(configData) {
+        var jsfiles = configData.jsFiles;
+        for(var i = 0 ;i < jsfiles.length; i++) {
+            var file = jsfiles[i];
+            console.log(file);
+            fetchScript(BASE_URL+'/'+file);
+        }
+        var cssfiles = configData.cssFiles;
+        for(var i = 0 ;i < cssfiles.length; i++) {
+            var file = cssfiles[i];
+            console.log(file);
+            fetchCss(BASE_URL+'/'+file);
+        }
+    }
+    var url = BASE_URL+'/configuration?callback=configure';
+    fetchScript(url);
+</script>
 
 {% if process.env.NODE_ENV === 'development' %}
-<!--Livereload script rendered -->
-<script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
-
+    <script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
 {% endif %}
 </body>
 

@@ -57,9 +57,11 @@ module.exports.getGlobbedFiles = function(globPatterns, removeRoot) {
  * Get the modules JavaScript files
  */
 module.exports.getJavaScriptAssets = function(includeTests) {
-	var output = this.getGlobbedFiles(this.assets.lib.js, 'public/');
-    output = _.union(output, this.assets.cordovajs);
-    output = _.union(output, this.getGlobbedFiles(this.assets.js, 'public/'));
+	var output = [];
+  output = _.union(output, this.assets.cordovajs);
+  output = _.union(output, this.getGlobbedFiles(this.assets.lib.js, 'public/'));
+  output = _.union(output, this.getGlobbedFiles(this.assets.js, 'public/'));
+  console.log('jsfiles = '+output);
 
 	// To include tests
 	if (includeTests) {

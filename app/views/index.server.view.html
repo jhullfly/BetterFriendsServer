@@ -6,13 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>{{title}}</title>
-    <!-- Fav Icon -->
+    <!-- fav icon -->
     <link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-    <!--Application CSS Files-->
-    {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">
+    <!--application css files-->
+    {% for cssfile in cssFiles %}<link rel="stylesheet" href="{{cssfile}}">
     {% endfor %}
 
+    <!--Application JavaScript Files-->
+    {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
+    {% endfor %}
 </head>
 
 <body ng-app="betterfriends">
@@ -23,9 +26,6 @@
     </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
 
-<!--Application JavaScript Files-->
-{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
-{% endfor %}
 
 {% if process.env.NODE_ENV === 'development' %}
 <!--Livereload script rendered -->

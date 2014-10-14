@@ -1,3 +1,4 @@
+/* global angular, BASE_URL */
 'use strict';
 
 // Setting up route
@@ -7,12 +8,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
             .state('invite', {
                 url: '/invite',
-                templateUrl: 'modules/core/views/invite.client.view.html',
+                templateUrl: BASE_URL+'/modules/core/views/invite.client.view.html',
                 controller: 'InviteCtrl'
             })
             .state('compose', {
                 url: '/compose',
-                templateUrl: 'modules/core/views/compose.client.view.html',
+                templateUrl: BASE_URL+'/modules/core/views/compose.client.view.html',
                 controller: 'ComposeCtrl'
             });
 

@@ -1,12 +1,17 @@
+/* globals ApplicationConfiguration, angular, cordova, cordovaInitialize, StatusBar, BASE_URL */
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies)
 
 // Setting HTML5 Location Mode
-.config(['$locationProvider',
-	function($locationProvider) {
+.config(['$locationProvider', '$sceDelegateProvider',
+	function($locationProvider, $sceDelegateProvider) {
 		$locationProvider.hashPrefix('!');
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      BASE_URL+'/**'
+    ]);
 	}
 ])
 

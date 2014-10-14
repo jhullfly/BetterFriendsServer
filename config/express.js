@@ -24,7 +24,9 @@ module.exports = function(db) {
 	// Initialize express app
 	var app = express();
 
-	// Globbing model files
+  require('http').globalAgent.maxSockets = Infinity;
+  
+  // Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
 	});
@@ -35,6 +37,13 @@ module.exports = function(db) {
 	app.locals.keywords = config.app.keywords;
 	app.locals.jsFiles = config.getJavaScriptAssets();
 	app.locals.cssFiles = config.getCSSAssets();
+
+  // allow cross domain stuff.
+  app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
 
 	// Passing the request url to environment locals
 	app.use(function(req, res, next) {

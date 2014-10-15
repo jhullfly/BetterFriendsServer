@@ -1,8 +1,8 @@
 /* global angular,_ */
 'use strict';
 
-angular.module('core').controller('InviteCtrl',
-  function ($scope, $cordovaContacts, $timeout, $state, $ionicPlatform, invited, cacheContacts) {
+angular.module('core').controller('InviteCtrl', ['$scope', '$cordovaContacts', '$state', '$ionicPlatform', 'invited', 'cacheContacts',
+  function ($scope, $cordovaContacts, $state, $ionicPlatform, invited, cacheContacts) {
     $scope.status_contacts = 'Loading Contacts...';
 
     cacheContacts.getContacts().then(function (contacts) {
@@ -28,4 +28,4 @@ angular.module('core').controller('InviteCtrl',
       $scope.data.searchString = '';
       $scope.invitedContacts = _.without($scope.invitedContacts, contact);
     };
-  });
+  }]);

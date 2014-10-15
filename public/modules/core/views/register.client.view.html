@@ -1,0 +1,45 @@
+<ion-header-bar class="bar-calm">
+    <h1 class="title">Better Friends</h1>
+</ion-header-bar>
+<ion-view title="Better Friends">
+    <ion-content class="register padding">
+        <h1 class="text-center">About You</h1>
+        <div class="list">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input type="text" placeholder="Name">
+                </label>
+                <i class="icon ion-information-circled placeholder-icon" ng-click="openNamePopover($event)" ></i>
+            </div>
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input type="tel" placeholder="Phone Number">
+                </label>
+                <i class="icon ion-information-circled placeholder-icon" ng-click="openPhonePopover($event)" ></i>
+            </div>
+        </div>
+        <p>That's it!  This is all the info we need to help you start planning.  If you like the app,
+            you can add a profile photo later in the Account section.</p>
+        <button class="button button-balanced" ui-sref="verify">
+            Next
+        </button>
+    </ion-content>
+</ion-view>
+
+<script id="name-info.html" type="text/ng-template">
+    <ion-popover-view>
+        <ion-content class="padding">
+            Nicknames are fine, but make sure to use a name your friends will recognize.
+            Add a last initial if you have friends with the same first name.
+            Ex: "Beth A.", "Doug B."
+        </ion-content>
+    </ion-popover-view>
+</script>
+<script id="phone-info.html" type="text/ng-template">
+    <ion-popover-view>
+        <ion-content class="padding">
+            We'll use this to help you receive messages from your friends when planning an event.
+            You have total control over what messages you send to your friends.
+        </ion-content>
+    </ion-popover-view>
+</script>

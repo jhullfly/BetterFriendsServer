@@ -17,3 +17,17 @@
 .invite-item p {
     margin: 0;
 }
+
+.placeholder-icon:last-child {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.large {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.popover {
+    height: 150px;
+}

@@ -1,7 +1,7 @@
 /* global angular,_ */
 'use strict';
 
-angular.module('core').controller('ComposeCtrl',
+angular.module('core').controller('ComposeCtrl', ['$scope', '$state', '$cordovaSms', 'invited',
   function ($scope, $state, $cordovaSms, invited) {
     $scope.sendSms = function (index) {
       $scope.sending_status = 'Sending message to ' + $scope.invitedContacts[index].name.formatted;
@@ -31,4 +31,4 @@ angular.module('core').controller('ComposeCtrl',
     $scope.message1 = 'Hey wanna grab drinks with me at the Lone Palm. Monday? 8pm? Reply here: http://blaa';
     $scope.message2 = $scope.message1;
     $scope.sending_status = null;
-  });
+  }]);

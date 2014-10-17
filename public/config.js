@@ -1,3 +1,5 @@
+/* globals angular, cordovaModuleName, cordovaInitialize, BASE_URL, cordovaStartupUrl */
+
 'use strict';
 
 // Init the application configuration module for AngularJS application
@@ -18,6 +20,9 @@ var ApplicationConfiguration = (function() {
 	return {
 		applicationModuleName: applicationModuleName,
 		applicationModuleVendorDependencies: applicationModuleVendorDependencies,
-		registerModule: registerModule
+		registerModule: registerModule,
+    cordovaInitialize : cordovaInitialize,
+    cordovaStartupUrl : cordovaStartupUrl,
+    baseUrl : BASE_URL
 	};
 })();

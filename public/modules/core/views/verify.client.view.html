@@ -5,9 +5,10 @@
     <ion-content class="padding text-center">
         <h1>Verify</h1>
         <p>We just sent you a message to</p>
-        <p class="large">(415) 111 - 1111</p>
+        <p class="large">{{auth.pendingPhoneNumber | tel}}</p>
         <p>Click on the link in the message to confirm that this is your phone number.</p>
         <p><a href="#">Resend the Message</a></p>
         <p><a href="#">Change Phone number</a></p>
+        <a href="#!" onclick="handleOpenUrl('betterfriends://verify?code=qFUy5q'); return false;" style="z-index: 100">test</a>
     </ion-content>
 </ion-view>

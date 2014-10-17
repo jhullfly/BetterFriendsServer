@@ -34,13 +34,11 @@
         var jsfiles = configData.jsFiles;
         for(var i = 0 ;i < jsfiles.length; i++) {
             var file = jsfiles[i];
-            console.log(file);
             fetchScript(BASE_URL+'/'+file);
         }
         var cssfiles = configData.cssFiles;
         for(var i = 0 ;i < cssfiles.length; i++) {
             var file = cssfiles[i];
-            console.log(file);
             fetchCss(BASE_URL+'/'+file);
         }
     }

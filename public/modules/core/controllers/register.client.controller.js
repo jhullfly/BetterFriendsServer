@@ -1,8 +1,8 @@
 /* global angular,_ */
 'use strict';
 
-angular.module('core').controller('RegisterCtrl', ['$scope', '$state', '$ionicPopover',
-  function ($scope, $state, $ionicPopover) {
+angular.module('core').controller('RegisterController', ['$scope', '$state', '$ionicPopover', 'Auth',
+  function ($scope, $state, $ionicPopover, Auth) {
     $ionicPopover.fromTemplateUrl('name-info.html', {
       scope: $scope
     }).then(function(popover) {
@@ -32,4 +32,16 @@ angular.module('core').controller('RegisterCtrl', ['$scope', '$state', '$ionicPo
       $scope.namePopover.remove();
       $scope.phonePopover.remove();
     });
+
+    $scope.data = {name:'', phoneNumber:''};
+    $scope.processing = false;
+    $scope.register = function() {
+      $scope.processing = true;
+      Auth.sendConfirmCode($scope.data.name, $scope.data.phoneNumber).then(function () {
+        $state.go('verify');
+      }, function (err) {
+        //TODO: fix this.
+        console.log('Got an error '+JSON.stringify(err));
+      });
+    };
   }]);

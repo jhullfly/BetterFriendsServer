@@ -7,21 +7,24 @@
         <div class="list">
             <div class="item item-input-inset">
                 <label class="item-input-wrapper">
-                    <input type="text" placeholder="Name">
+                    <input type="text" placeholder="Name" ng-model="data.name">
                 </label>
                 <i class="icon ion-information-circled placeholder-icon" ng-click="openNamePopover($event)" ></i>
             </div>
             <div class="item item-input-inset">
                 <label class="item-input-wrapper">
-                    <input type="tel" placeholder="Phone Number">
+                    <input type="tel" placeholder="Phone Number" ng-model="data.phoneNumber">
                 </label>
                 <i class="icon ion-information-circled placeholder-icon" ng-click="openPhonePopover($event)" ></i>
             </div>
         </div>
         <p>That's it!  This is all the info we need to help you start planning.  If you like the app,
             you can add a profile photo later in the Account section.</p>
-        <button class="button button-balanced" ui-sref="verify">
+        <button class="button button-balanced" ng-click="register()" ng-hide="processing">
             Next
+        </button>
+        <button class="disabled button button-balanced" ng-show="processing">
+            <i class="icon ion-loading-a"></i>
         </button>
     </ion-content>
 </ion-view>

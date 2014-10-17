@@ -28,6 +28,10 @@
     font-weight: 500;
 }
 
+.icon-large {
+    font-size: 70px;
+}
+
 .popover {
     height: 150px;
 }

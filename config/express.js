@@ -6,16 +6,8 @@
 var express = require('express'),
 	morgan = require('morgan'),
 	bodyParser = require('body-parser'),
-	session = require('express-session'),
 	compress = require('compression'),
 	methodOverride = require('method-override'),
-	cookieParser = require('cookie-parser'),
-	helmet = require('helmet'),
-	passport = require('passport'),
-	mongoStore = require('connect-mongo')({
-		session: session
-	}),
-	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
 	path = require('path');
@@ -23,8 +15,6 @@ var express = require('express'),
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();
-
-  require('http').globalAgent.maxSockets = Infinity;
 
   // Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
@@ -74,6 +64,9 @@ module.exports = function(db) {
 		// Enable logger (morgan)
 		app.use(morgan('dev'));
 
+    //useful for debugging
+    app.use(methodOverride('_method', {methods:['POST', 'GET']}));
+
 		// Disable views cache
 		app.set('view cache', false);
 	} else if (process.env.NODE_ENV === 'production') {
@@ -85,33 +78,10 @@ module.exports = function(db) {
 		extended: true
 	}));
 	app.use(bodyParser.json());
-	app.use(methodOverride());
 
 	// Enable jsonp
 	app.enable('jsonp callback');
 
-	// CookieParser should be above session
-	app.use(cookieParser());
-
-	// Express MongoDB session storage
-	app.use(session({
-		saveUninitialized: true,
-		resave: true,
-		secret: config.sessionSecret,
-		store: new mongoStore({
-			db: db.connection.db,
-			collection: config.sessionCollection
-		})
-	}));
-
-	// connect flash for flash messages
-	app.use(flash());
-
-	// Use helmet to secure Express headers
-	app.use(helmet.xframe());
-	app.use(helmet.xssFilter());
-	app.use(helmet.nosniff());
-	app.use(helmet.ienoopen());
 	app.disable('x-powered-by');
 
 	// Setting the app router and static folder
@@ -122,17 +92,23 @@ module.exports = function(db) {
 		require(path.resolve(routePath))(app);
 	});
 
-	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
+
 	app.use(function(err, req, res, next) {
 		// If the error object doesn't exists
 		if (!err) return next();
 
+    var message = '';
+    if (err.stack) {
+      message = err.stack;
+    } else {
+      message = JSON.stringify(err);
+    }
 		// Log it
-		console.error(err.stack);
+		console.error(message);
 
 		// Error page
 		res.status(500).render('500', {
-			error: err.stack
+			error: message
 		});
 	});
 

@@ -61,7 +61,6 @@ module.exports.getJavaScriptAssets = function(includeTests) {
   output = _.union(output, this.assets.cordovajs);
   output = _.union(output, this.getGlobbedFiles(this.assets.lib.js, 'public/'));
   output = _.union(output, this.getGlobbedFiles(this.assets.js, 'public/'));
-  console.log('jsfiles = '+output);
 
 	// To include tests
 	if (includeTests) {

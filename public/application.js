@@ -1,5 +1,10 @@
-/* globals ApplicationConfiguration, angular, cordova, cordovaInitialize, StatusBar, BASE_URL */
+/* globals ApplicationConfiguration, angular, cordova, StatusBar */
 'use strict';
+
+function handleOpenUrlInternal(url) {
+  var root = angular.element(document.body).scope();
+  root.urlHandlerCallback(url);
+}
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies)
@@ -10,7 +15,7 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 		$locationProvider.hashPrefix('!');
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      BASE_URL+'/**'
+        ApplicationConfiguration.baseUrl+'/**'
     ]);
 	}
 ])
@@ -29,14 +34,19 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
     });
 })
 
-.run(cordovaInitialize);
+.run(['$rootScope', 'UrlOpenHandler', function($rootScope, UrlOpenHandler) {
+  $rootScope.urlHandlerCallback = function(url) {
+    console.log('got back into angular '+url);
+    UrlOpenHandler.handleUrl(url);
+  };
+}])
 
-//Then define the init function for starting up the application
-angular.element(document).ready(function() {
-	//Fixing facebook bug with redirect
-	if (window.location.hash === '#_=_') window.location.hash = '#!';
 
-	//Then init the app
-	angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
-});
+.run(ApplicationConfiguration.cordovaInitialize)
+
+.run(function() {
+    if (ApplicationConfiguration.cordovaStartupUrl) {
+      setTimeout(function() {handleOpenUrlInternal(ApplicationConfiguration.cordovaStartupUrl);}, 200);
+    }
+  });
 

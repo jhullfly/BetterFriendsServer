@@ -1,8 +1,11 @@
+'use strict';
 // this file is replaced by platform.
 
 var cordovaModuleName = 'ngCordovaMocks';
-var cordovaInitialize = function($cordovaContacts, $cordovaSms) {
+var cordovaInitialize = ['$cordovaContacts', '$cordovaSms', '$cordovaDevice',
+  function($cordovaContacts, $cordovaSms, $cordovaDevice) {
     // for testing
+    $cordovaDevice.uuid = 'fake-uuid';
     $cordovaContacts.contacts = [{
         name : {
             formatted: 'Jamie Smith'
@@ -47,4 +50,4 @@ var cordovaInitialize = function($cordovaContacts, $cordovaSms) {
      success:false,
      message:"canceled"
      }]);*/
-}
+}];

@@ -1,7 +1,7 @@
 /* global angular,_ */
 'use strict';
 
-angular.module('core').controller('ComposeCtrl', ['$scope', '$state', '$cordovaSms', 'invited',
+angular.module('core').controller('ComposeController', ['$scope', '$state', '$cordovaSms', 'invited',
   function ($scope, $state, $cordovaSms, invited) {
     $scope.sendSms = function (index) {
       $scope.sending_status = 'Sending message to ' + $scope.invitedContacts[index].name.formatted;

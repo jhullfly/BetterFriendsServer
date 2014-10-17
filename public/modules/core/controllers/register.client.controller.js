@@ -40,7 +40,8 @@ angular.module('core').controller('RegisterController', ['$scope', '$state', '$i
       Auth.sendConfirmCode($scope.data.name, $scope.data.phoneNumber).then(function () {
         $state.go('verify');
       }, function (err) {
-        //TODO: fix this.
+        $scope.processing = false;
+        $scope.errorMessage = 'Unable to send to that number. Please try another.';
         console.log('Got an error '+JSON.stringify(err));
       });
     };

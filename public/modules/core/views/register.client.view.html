@@ -18,8 +18,9 @@
                 <i class="icon ion-information-circled placeholder-icon" ng-click="openPhonePopover($event)" ></i>
             </div>
         </div>
-        <p>That's it!  This is all the info we need to help you start planning.  If you like the app,
+        <p ng-hide="errorMessage">That's it!  This is all the info we need to help you start planning.  If you like the app,
             you can add a profile photo later in the Account section.</p>
+        <p class="assertive" ng-show="errorMessage">{{errorMessage}}</p>
         <button class="button button-balanced" ng-click="register()" ng-hide="processing">
             Next
         </button>

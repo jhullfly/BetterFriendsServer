@@ -15,6 +15,27 @@ angular.module('core')
   })
 
   .service('cacheContacts', function ($ionicPlatform, $cordovaContacts, $q, $timeout) {
+    function cleanNumber(num) {
+      if (!num) {
+        return null;
+      }
+      var cleaned = '';
+      for(var i = 0 ; i < num.length ; i++) {
+        var c = num.charAt(i);
+        if (/[0-9]/.test(c)) {
+          cleaned = cleaned+c;
+        }
+      }
+      if (cleaned.length === 11 && cleaned.charAt(0)==='1') {
+        // remove leading 1
+        cleaned = cleaned.substring(1);
+      }
+      if (cleaned.length === 10) {
+        return cleaned;
+      } else {
+        return null;
+      }
+    }
     function flattenAndFilterContacts(contacts) {
       var filteredContacts = _.filter(contacts, function (contact) {
         return contact.phoneNumbers && contact.phoneNumbers.length > 0;
@@ -22,7 +43,13 @@ angular.module('core')
       var newContacts = [];
       _.each(filteredContacts, function (contact) {
         var filteredNumbers = _.filter(contact.phoneNumbers, function (num) {
-          return num.value;
+          var cleaned = cleanNumber(num.value);
+          if (cleaned) {
+            num.cleanedValue = cleaned;
+            return true;
+          } else {
+            return false;
+          }
         });
         if (filteredNumbers.length === 1) {
           contact.phoneNumber = filteredNumbers[0];

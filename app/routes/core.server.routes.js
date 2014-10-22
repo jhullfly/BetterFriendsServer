@@ -12,6 +12,7 @@
     // Root routing
     var core = require('../../app/controllers/core');
     app.route('/').get(core.index);
+    app.route('/landing').get(core.landing);
     // these files are different by platform so we generate them dynamically
     app.get('/platforms/*', uaMiddleware, core.platforms);
 

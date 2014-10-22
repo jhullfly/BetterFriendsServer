@@ -1,0 +1,13 @@
+<ion-header-bar class="bar-calm">
+    <h1 class="title">Better Friends</h1>
+</ion-header-bar>
+<ion-view title="Better Friends">
+    <ion-content class="padding text-center">
+        <p>Great we will let {{event.creator.name}} know you are coming!</p>
+        <p>{{event.creator.name}} has also requested that you invite two more people to make the event more fun.</p>
+        <button class="button button-balanced button-left" ng-click="invite()">
+            Yes, I'll invite 2 more people
+        </button>
+        <p>(requires app install)</p>
+    </ion-content>
+</ion-view>

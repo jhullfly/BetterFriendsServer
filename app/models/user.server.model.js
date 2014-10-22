@@ -9,14 +9,6 @@ var
 	Schema = mongoose.Schema;
 
 /**
- * A Validation function for state
- */
-  var validStates = ['app-unverified', 'app-unverified-havephone', 'app-verified'];
-var validateState = function(state) {
-  return _.contains(validStates, state);
-};
-
-/**
  * User Schema
  */
 var UserSchema = new Schema({
@@ -35,7 +27,7 @@ var UserSchema = new Schema({
     type: String,
     unique: true,
     trim: true,
-    required: 'phoneNumber cannot be blank'
+    match: [/[0-9]{10}/, 'phonenumber must be 10 digits no spaces']
   },
 	created: {
 		type: Date,

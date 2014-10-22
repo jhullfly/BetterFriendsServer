@@ -31,20 +31,23 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/verifying.client.view.html',
         controller: 'VerifyingController'
       })
-      .state('verified', {
-        url: '/verified',
-        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/verified.client.view.html',
-        controller: 'VerifiedController'
+      .state('home', {
+        url: '/home',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/home.client.view.html',
+        controller: 'HomeController',
+        authenticated: true
       })
       .state('invite', {
         url: '/invite',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/invite.client.view.html',
-        controller: 'InviteController'
+        controller: 'InviteController',
+        authenticated: true
       })
       .state('compose', {
         url: '/compose',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/compose.client.view.html',
-        controller: 'ComposeController'
+        controller: 'ComposeController',
+        authenticated: true
       });
 
     $urlRouterProvider.otherwise('/loading');
@@ -54,12 +57,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 angular.module('core')
   .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-      /* TODO: replace with anon and auth'ed pages.
-      if (toState.url !== '/loading' && toState.url !== '/verifying' && Auth.user === null){
+      if (toState.authenticated && Auth.user === null){
         // User isn’t authenticated
         $state.go('loading');
         event.preventDefault();
       }
-      */
     });
   }]);

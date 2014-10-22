@@ -1,8 +1,10 @@
 'use strict';
 (function () {
 
+  var Q = require('q');
   var mongoose = require('mongoose');
-  var Promise = require('mongoose/node_modules/mpromise');
+  var sms = require('./sms');
+  var RandomString = require('./randomString');
   var User = mongoose.model('User');
   var UnconfirmedUser = mongoose.model('UnconfirmedUser');
   var Nexmo = require('easynexmo');
@@ -12,44 +14,8 @@
   }
 
   function sendVerificationCode(phoneNumber, code) {
-    var promise = new Promise();
-    Nexmo.initialize('e9dc2606','15252205','https', true);
     var message = 'To verify phone number click --> betterfriends://verify?code='+code;
-    Nexmo.sendTextMessage('12243109030', '+1'+phoneNumber, message, {}, function(err, data) {
-      if (err) {
-        promise.reject(err);
-      } else if (!data.messages || data.messages.length < 1) {
-        promise.reject('unable to find nexmo return status '+JSON.stringify(data));
-      } else if (data.messages[0].status !== '0') {
-        promise.reject('bad status code from nexmo '+JSON.stringify(data));
-      } else {
-        promise.fulfill(data);
-      }
-    });
-    return promise;
-  }
-
-  // random character that is a digit, upper case letter, or lower case letter
-  function randomCharacter() {
-    var num = Math.floor((Math.random() * 62));
-    if (num < 10) {
-      //digits
-      return String.fromCharCode(48+num);
-    } else if (num < 36) {
-      // upper case number
-      return String.fromCharCode(65+(num-10));
-    } else {
-      // lower case number
-      return String.fromCharCode(97+(num-36));
-    }
-  }
-
-  function generateRandomString(length) {
-    var code = '';
-    for(var i = 0 ; i < length ; i++) {
-      code = code + randomCharacter();
-    }
-    return code;
+    return sms.send(phoneNumber, message);
   }
 
   exports.sendConfirmCode = function (req) {
@@ -58,13 +24,13 @@
       uuid : req.param('uuid'),
       name : req.param('name'),
       phoneNumber : cleanPhone(req.param('phoneNumber')),
-      confirmCode : generateRandomString(6)
+      confirmCode : RandomString.generate(6)
     };
     var p = UnconfirmedUser.findOneAndUpdate({uuid:data.uuid}, data, {upsert:true}).exec();
     return p.then(function (unuser) {
-      if (skipSend) {
-        console.log('confirmCode = ' + data.confirmCode);
-        return {success:true};
+      if (data.uuid.indexOf('fake-') === 0) {
+        // if we are on a test device don't send sms and return the confirm code.
+        return {success:true, testConfirmCode : data.confirmCode};
       }
       return sendVerificationCode(data.phoneNumber, data.confirmCode).then(function (data) {
         return {success:true};
@@ -80,7 +46,7 @@
           return user;
         } else {
           // case 2: user exists with same uuid different phone. change uuid to fake uuid. continue.
-          return User.findOneAndUpdate({uuid:unuser.uuid}, {uuid:'old'+generateRandomString(6)+'-'+unuser.uuid}).exec().then(
+          return User.findOneAndUpdate({uuid:unuser.uuid}, {uuid:'old'+RandomString.generate(6)+'-'+unuser.uuid}).exec().then(
             function () {
               //case 3: user exists with same phonenumber different uuid. update uuid and name. done.
               return User.findOneAndUpdate({phoneNumber:unuser.phoneNumber}, {uuid:unuser.uuid, name:unuser.name}).exec().then(

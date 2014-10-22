@@ -35,3 +35,14 @@
 .popover {
     height: 150px;
 }
+
+a {
+    text-decoration: underline;
+}
+/* for side by side buttons */
+.button-left {
+    margin-right: 10px
+}
+.button-right {
+    margin-left: 10px
+}

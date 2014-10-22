@@ -8,8 +8,6 @@ module.exports = {
   },
   port: process.env.PORT || 3000,
   templateEngine: 'swig',
-  sessionSecret: 'MEAN',
-  sessionCollection: 'sessions',
   assets: {
     lib: {
       css: [
@@ -24,7 +22,6 @@ module.exports = {
       'public/modules/**/css/*.css'
     ],
     // this is handled specially because loading order is very important.
-    // and cordova.js is not coming from the public directory.
     cordovajs: [
       'platforms/cordovaSetup.js'
     ],

@@ -26,13 +26,40 @@ var cordovaInitialize = ['$cordovaContacts', '$cordovaSms', '$cordovaDevice',
             value : '(415) 444-444'
         }]
     }, {
-        name : {
-            formatted: 'Bob Smith'
-        },
-        phoneNumbers : [{
-            type : 'mobile',
-            value : '(415) 222-2222'
-        }]
+      name : {
+        formatted: 'Bob Smith'
+      },
+      phoneNumbers : [{
+        type : 'mobile',
+        value : '(415) 222-2222'
+      }]
+
+    }, {
+      name : {
+        formatted: 'Jesse Hull'
+      },
+      phoneNumbers : [{
+        type : 'mobile',
+        value : '(510967-4275'
+      }]
+
+    }, {
+      name : {
+        formatted: 'Bad Number'
+      },
+      phoneNumbers : [{
+        type : 'mobile',
+        value : '(510) 967-42'
+      }]
+
+    }, {
+      name : {
+        formatted: 'Jesse Test'
+      },
+      phoneNumbers : [{
+        type : 'mobile',
+        value : '(415) 629-2070'
+      }]
 
     }, {
         name : {

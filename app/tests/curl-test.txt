@@ -1,0 +1,4 @@
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"invited":[{"phoneNumber":"5109674275","message":"hey, dude","status":"invited","invitedOn":"2014-10-20T17:26:21.704Z","invitedBy":"544545bdfe05feb127e489a8"}],"creator":"544545bdfe05feb127e489a8","when":"2014-10-20T17:26:21.704Z"}' \
+  http://localhost:3000/event/createAndInvite

@@ -35,7 +35,13 @@ angular.module('core')
           phoneNumber : phoneNumber,
           uuid : $cordovaDevice.getUUID()
         };
-        return $http.post(url, data);
+        return $http.post(url, data).then(function(res) {
+          // when testing we actually get the confirm code.
+          if (res.data.testConfirmCode) {
+            that.testConfirmCode = res.data.testConfirmCode;
+          }
+          return res;
+        });
       };
       this.register = function(confirmCode) {
         var url = ApplicationConfiguration.baseUrl + '/user/register';

@@ -5,7 +5,7 @@ angular.module('core').controller('LoadingController', ['$scope', '$state', 'Aut
   function ($scope, $state, Auth) {
     Auth.authenticate().then(function (user) {
       if (user) {
-        $state.go('verified');
+        $state.go('home');
       } else {
         $state.go('welcome');
       }

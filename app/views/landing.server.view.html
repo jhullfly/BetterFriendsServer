@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- removes auto clicking of phone numbers which messes up angularjs -->
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Better Friends Landing</title>
+    <link rel="stylesheet" href="../lib/ionic/css/ionic.css"/>
+    <link rel="stylesheet" href="../modules/core/css/core.css"/>
+    <script type="text/javascript" src="../lib/ionic/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="../landing/application.client.js"></script>
+</head>
+<body ng-app="betterfriendsLanding">
+    <span ui-view></span>
+
+    {% if process.env.NODE_ENV === 'development' %}
+        <script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
+    {% endif %}
+</body>
+
+</html>

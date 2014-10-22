@@ -26,8 +26,7 @@ var UnconfirmedUserSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    trim: true,
-    required: 'phonenumber cannot be blank'
+    match: [/[0-9]{10}/, 'phonenumber must be 10 digits no spaces']
   },
   confirmCode: {
     type:String,

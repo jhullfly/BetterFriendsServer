@@ -47,6 +47,7 @@ module.exports = function(db) {
 	// Passing the request url to environment locals
 	app.use(function(req, res, next) {
 		res.locals.url = req.protocol + '://' + req.headers.host + req.url;
+    res.locals.baseUrl = config.baseUrl;
 		next();
 	});
 
@@ -97,7 +98,7 @@ module.exports = function(db) {
 	app.use(express.static(path.resolve('./public')));
 
 	// Globbing routing files
-	config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
+	config.getGlobbedFiles('./app/routes/**/*.routes.js').forEach(function(routePath) {
 		require(path.resolve(routePath))(app);
 	});
 

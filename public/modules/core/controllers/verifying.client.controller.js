@@ -5,7 +5,7 @@ angular.module('core').controller('VerifyingController', ['$scope', '$state', '$
 	function($scope, $state, $stateParams, Auth) {
     Auth.register($stateParams.confirmCode).then(function(result) {
       if (result.success) {
-        $state.go('verified');
+        $state.go('home');
       } else {
         $scope.errorMessage = result.message;
       }

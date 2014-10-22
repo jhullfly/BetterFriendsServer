@@ -18,6 +18,10 @@
     res.render('index');
   };
 
+  exports.landing = function (req, res) {
+    res.render('landing');
+  };
+
   exports.platforms = function (req, res) {
     var os = getOS(res);
     var filePath = req.path.replace('/platforms', '/platforms/' + os);

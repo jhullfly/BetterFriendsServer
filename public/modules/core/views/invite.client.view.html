@@ -18,7 +18,7 @@
                     {{contact.name.formatted}}
                     <span ng-show="contact.phoneNumber.displayType" class="phoneType">({{contact.phoneNumber.displayType}})</span>
                 </h2>
-                <p>{{contact.phoneNumber.value}}</p>
+                <p>{{contact.phoneNumber.cleanedValue | tel}}</p>
                 <button class="button button-balanced" ng-show="!added" ng-click="added=true;addInvite(contact)">
                     invite
                 </button>

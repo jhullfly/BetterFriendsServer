@@ -8,7 +8,7 @@
         <p class="large">{{auth.pendingPhoneNumber | tel}}</p>
         <p>Click on the link in the message to confirm that this is your phone number.</p>
 <!--        <p><a href="#">Resend the Message</a></p>
-        <p><a href="#">Change Phone number</a></p>
-        <a href="#!" onclick="handleOpenUrl('betterfriends://verify?code=qFUy5q'); return false;" style="z-index: 100">test</a>-->
+        <p><a href="#">Change Phone number</a></p>-->
+        <a ng-show="auth.testConfirmCode" ng-click="UrlOpenHandler.handleUrl('betterfriends://verify?code={{auth.testConfirmCode}}')">Simulate Sms Click</a>
     </ion-content>
 </ion-view>

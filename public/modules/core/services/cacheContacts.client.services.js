@@ -4,38 +4,7 @@
 // Setting up route
 angular.module('core')
 
-  .service('invited', function () {
-    this.contacts = null;
-    this.setContacts = function (contacts) {
-      this.contacts = contacts;
-    };
-    this.getContacts = function () {
-      return this.contacts;
-    };
-  })
-
-  .service('cacheContacts', function ($ionicPlatform, $cordovaContacts, $q, $timeout) {
-    function cleanNumber(num) {
-      if (!num) {
-        return null;
-      }
-      var cleaned = '';
-      for(var i = 0 ; i < num.length ; i++) {
-        var c = num.charAt(i);
-        if (/[0-9]/.test(c)) {
-          cleaned = cleaned+c;
-        }
-      }
-      if (cleaned.length === 11 && cleaned.charAt(0)==='1') {
-        // remove leading 1
-        cleaned = cleaned.substring(1);
-      }
-      if (cleaned.length === 10) {
-        return cleaned;
-      } else {
-        return null;
-      }
-    }
+  .service('cacheContacts', function ($ionicPlatform, $cordovaContacts, $q, $timeout, PhoneNumber) {
     function flattenAndFilterContacts(contacts) {
       var filteredContacts = _.filter(contacts, function (contact) {
         return contact.phoneNumbers && contact.phoneNumbers.length > 0;
@@ -43,7 +12,7 @@ angular.module('core')
       var newContacts = [];
       _.each(filteredContacts, function (contact) {
         var filteredNumbers = _.filter(contact.phoneNumbers, function (num) {
-          var cleaned = cleanNumber(num.value);
+          var cleaned = PhoneNumber.clean(num.value);
           if (cleaned) {
             num.cleanedValue = cleaned;
             return true;

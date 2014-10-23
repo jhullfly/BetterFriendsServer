@@ -23,18 +23,26 @@ var EventSchema = new Schema({
   },
   invited : [{
       user: Schema.Types.ObjectId,
-      name: String,
+      name: {
+        type: String,
+        require: true
+      },
       phoneNumber: {
         type: String,
-        match: [/[0-9]{10}/, 'phonenumber must be 10 digits no spaces']
+        match: [/[0-9]{10}/, 'phonenumber must be 10 digits no spaces'],
+        require: true
       },
       message : String,
       status: {
         type: String,
         enum: {
-          values: 'invited accepted-none-sent accepted-sent declined'.split(' '),
+          values: 'invited accepted declined'.split(' '),
           message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
-        }
+        },
+        require: true
+      },
+      repliedOn: {
+        type: Date
       },
       invitedOn: {
         type: Date,

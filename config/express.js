@@ -31,14 +31,14 @@ module.exports = function(db) {
   // allow cross domain stuff.
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Device-UUID');
     next();
   });
   app.options('*', function(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Device-UUID');
     res.send();
   });
 
@@ -96,6 +96,10 @@ module.exports = function(db) {
 
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./public')));
+
+  // Little weird to put this here but it has to be before all standard routes.
+  var users = require('../app/controllers/users');
+  app.route('/auth/*').all(users.authMiddleware);
 
 	// Globbing routing files
 	config.getGlobbedFiles('./app/routes/**/*.routes.js').forEach(function(routePath) {

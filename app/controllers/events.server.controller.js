@@ -24,17 +24,32 @@
   exports.createAndInvite = function (req, locals) {
     var event = req.body;
     var baseUrl = locals.baseUrl;
+    var user = locals.user;
     _.each(event.invited, function (invite) { invite.inviteCode = RandomString.generate(6);});
-    return User.findById(event.creator).exec().then(function(user) {
-      return Event.create(event).then(
-        function (dbevent) {
-          return sendSmsInvites(user, dbevent, baseUrl);
-        }
-      );
-    });
+    return Event.create(event).then(
+      function (dbevent) {
+        return sendSmsInvites(user, dbevent, baseUrl).then(function (smsReturn) {
+          return {success:true, id: dbevent._id};
+        });
+      }
+    );
   };
 
   exports.get = function (req) {
+    var eid = req.param('eid');
+    return Event.findById(eid)
+      .populate('creator', 'name phoneNumber')
+      .populate('invited.invitedBy', 'name phoneNumber')
+      .exec().then(function(event) {
+        if (event) {
+          return {success: true, event: event};
+        } else {
+          Q.reject('unknown event id "' + eid + '"');
+        }
+      });
+  };
+
+  exports.getAnon = function (req) {
     var eid = req.param('eid');
     var inviteCode = req.param('inviteCode');
     return Event.findById(eid, '+invited.inviteCode').exec().then(function (event) {
@@ -64,7 +79,7 @@
     });
   };
 
-  exports.updateStatus = function (req) {
+  exports.updateStatusAnon = function (req) {
     var eid = req.param('eid');
     var inviteCode = req.param('inviteCode');
     var newStatus = req.param('newStatus');
@@ -75,6 +90,7 @@
         });
         if (invitee) {
           invitee.status = newStatus;
+          invitee.repliedOn = new Date();
           var defer = Q.defer();
           event.save(function (err) {
             if (err) {

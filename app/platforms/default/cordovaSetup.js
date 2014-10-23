@@ -12,7 +12,7 @@ var cordovaInitialize = ['$cordovaContacts', '$cordovaSms', '$cordovaDevice',
         },
         phoneNumbers : [{
             type : 'mobile',
-            value : '(415) 111-1111'
+            value : '(111) 111-1111'
         }]
     }, {
         name : {
@@ -20,10 +20,10 @@ var cordovaInitialize = ['$cordovaContacts', '$cordovaSms', '$cordovaDevice',
         },
         phoneNumbers : [{
             type: 'mobile',
-            value: '(415) 333-3333'
+            value: '(333) 333-3333'
         },{
             type : 'home',
-            value : '(415) 444-444'
+            value : '(444) 444-444'
         }]
     }, {
       name : {
@@ -31,7 +31,7 @@ var cordovaInitialize = ['$cordovaContacts', '$cordovaSms', '$cordovaDevice',
       },
       phoneNumbers : [{
         type : 'mobile',
-        value : '(415) 222-2222'
+        value : '(222) 222-2222'
       }]
 
     }, {

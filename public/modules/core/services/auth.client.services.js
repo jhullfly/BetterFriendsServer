@@ -3,8 +3,8 @@
 
 // Setting up route
 angular.module('core')
- .service('Auth', ['$ionicPlatform', '$cordovaDevice', '$http', '$q',
-    function ($ionicPlatform, $cordovaDevice, $http, $q) {
+ .service('Auth', ['$ionicPlatform', '$cordovaDevice', '$http', '$q', 'PhoneNumber',
+    function ($ionicPlatform, $cordovaDevice, $http, $q, PhoneNumber) {
       var that = this;
       this.user = null;
       this.pendingPhoneNumber = null;
@@ -28,6 +28,10 @@ angular.module('core')
         return that.user;
       };
       this.sendConfirmCode = function(name, phoneNumber) {
+        phoneNumber = PhoneNumber.clean(phoneNumber);
+        if (!phoneNumber) {
+          return $q.reject('invalid phonenumber');
+        }
         that.pendingPhoneNumber = phoneNumber;
         var url = ApplicationConfiguration.baseUrl + '/user/sendConfirmCode';
         var data = {

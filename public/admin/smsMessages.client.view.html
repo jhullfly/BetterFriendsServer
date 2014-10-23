@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <td>Phonenumber</td>
+            <td>Message</td>
+            <td>created</td>
+        </tr>
+    </thead>
+    <tr ng-repeat="smsMessage in smsMessages">
+        <td>{{smsMessage.phoneNumber}}</td>
+        <td>{{smsMessage.message}}</td>
+        <td>{{smsMessage.created}}</td>
+    </tr>
+</table>

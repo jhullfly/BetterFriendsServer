@@ -7,7 +7,6 @@
   var RandomString = require('./randomString');
   var User = mongoose.model('User');
   var UnconfirmedUser = mongoose.model('UnconfirmedUser');
-  var Nexmo = require('easynexmo');
 
   function cleanPhone(phone) {
     return phone.replace(/ /g, '').replace(/\-/, '');
@@ -17,6 +16,23 @@
     var message = 'To verify phone number click --> betterfriends://verify?code='+code;
     return sms.send(phoneNumber, message);
   }
+
+  exports.authMiddleware = function(req, res, next) {
+    var uuid = req.get('X-Device-UUID');
+    if (uuid) {
+      User.findOne({uuid:uuid}).exec().then(function (user) {
+        if (!user) {
+          next('no user for uuid = "'+uuid+'"');
+        }
+        res.locals.user = user;
+        next();
+      }, function (err) {
+        next(err);
+      });
+    } else {
+      next('missing "device-uuid" header');
+    }
+  };
 
   exports.sendConfirmCode = function (req) {
     var skipSend = req.param('skipSend', false);
@@ -28,12 +44,13 @@
     };
     var p = UnconfirmedUser.findOneAndUpdate({uuid:data.uuid}, data, {upsert:true}).exec();
     return p.then(function (unuser) {
-      if (data.uuid.indexOf('fake-') === 0) {
-        // if we are on a test device don't send sms and return the confirm code.
-        return {success:true, testConfirmCode : data.confirmCode};
-      }
-      return sendVerificationCode(data.phoneNumber, data.confirmCode).then(function (data) {
-        return {success:true};
+      return sendVerificationCode(data.phoneNumber, data.confirmCode).then(function (returnData) {
+        if (data.uuid.indexOf('fake-') === 0) {
+          // if we are on a test device return the confirm code.
+          return {success:true, testConfirmCode : data.confirmCode};
+        } else {
+          return {success:true};
+        }
       });
     });
   };

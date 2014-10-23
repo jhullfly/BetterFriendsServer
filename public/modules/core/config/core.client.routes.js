@@ -48,6 +48,12 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/compose.client.view.html',
         controller: 'ComposeController',
         authenticated: true
+      })
+      .state('event', {
+        url: '/event/:eid',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/event.client.view.html',
+        controller: 'EventController',
+        authenticated: true
       });
 
     $urlRouterProvider.otherwise('/loading');

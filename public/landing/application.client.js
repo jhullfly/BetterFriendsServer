@@ -23,7 +23,7 @@ angular.module('betterfriendsLanding').config(['$stateProvider', '$urlRouterProv
 angular.module('betterfriendsLanding').controller('RespondController', ['$scope', '$stateParams', '$state', '$http',
   function ($scope, $stateParams, $state, $http) {
     $scope.accept = function() {
-      var data = {newStatus:'accepted-none-sent'};
+      var data = {newStatus:'accepted'};
       $http.post('/event/updateStatus/'+$stateParams.eid+'/'+$stateParams.inviteCode, data).then(function (res) {
         $state.go('accepted', {eid:$stateParams.eid, inviteCode:$stateParams.inviteCode});
       });

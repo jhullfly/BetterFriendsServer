@@ -1,31 +1,37 @@
 /* global angular,_ */
 'use strict';
 
-angular.module('core').controller('InviteController', ['$scope', '$cordovaContacts', '$state', '$ionicPlatform', 'invited', 'cacheContacts',
-  function ($scope, $cordovaContacts, $state, $ionicPlatform, invited, cacheContacts) {
+angular.module('core').controller('InviteController', ['$scope', '$cordovaContacts', '$state', '$ionicPlatform', 'cacheContacts',
+  function ($scope, $cordovaContacts, $state, $ionicPlatform, cacheContacts) {
     $scope.status_contacts = 'Loading Contacts...';
 
     cacheContacts.getContacts().then(function (contacts) {
       $scope.contacts = contacts;
+      // mark contacts already added.
+      if ($scope.$parent.event) {
+        _.each(contacts, function (contact) {
+          contact.alreadyAdded = -1 !== _.findIndex($scope.$parent.event.invited, function (invite) {
+            return invite.phoneNumber === contact.phoneNumber.cleanedValue;
+          });
+        });
+      }
       $scope.status_contacts = '';
     }, function (err) {
       $scope.status_contacts = ('Error: ' + JSON.stringify(err));
     });
 
-    $scope.invitedContacts = [];
     $scope.data = {};
 
     $scope.addInvite = function (contact) {
-      $scope.invitedContacts.push(contact);
+      $scope.$parent.newInvites.push(contact);
       $scope.data.searchString = '';
-      if ($scope.invitedContacts.length === 2) {
-        invited.setContacts($scope.invitedContacts);
-        $state.go('compose');
+      if ($scope.$parent.newInvites.length === 2) {
+        $state.go('^.compose');
       }
     };
 
     $scope.removeInvite = function (contact) {
       $scope.data.searchString = '';
-      $scope.invitedContacts = _.without($scope.invitedContacts, contact);
+      $scope.$parent.newInvites = _.without($scope.$parent.newInvites, contact);
     };
   }]);

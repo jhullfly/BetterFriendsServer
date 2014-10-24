@@ -1,0 +1,25 @@
+<div class="padding text-center">
+    <button class="button button-balanced" ui-sref="^.invite">
+        Invite More
+    </button>
+</div>
+<div class="list">
+    <div class="item item-divider">
+        Attending
+    </div>
+    <a class="item" ng-repeat="invitee in event.attending">
+        {{invitee.name}} accepted on {{invitee.repliedOn | date : 'EEE h a'}}
+    </a>
+    <div class="item item-divider">
+        Invited (no response yet)
+    </div>
+    <a class="item" ng-repeat="invitee in event.notResponded">
+        {{invitee.name}}
+    </a>
+    <div class="item item-divider">
+        Declined
+    </div>
+    <a class="item" ng-repeat="invitee in event.declined">
+        {{invitee.name}}
+    </a>
+</div>

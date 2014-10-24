@@ -5,25 +5,6 @@
     <ion-content class="padding">
         <h1 class="text-center">Monday Night</h1>
         <h2 class="text-center">Lone Palm, 8pm</h2>
-        <div class="list">
-            <div class="item item-divider">
-                Attending
-            </div>
-            <a class="item" ng-repeat="invitee in event.attending">
-                {{invitee.name}}
-            </a>
-            <div class="item item-divider">
-                Invited (no response yet)
-            </div>
-            <a class="item" ng-repeat="invitee in event.notResponded">
-                {{invitee.name}}
-            </a>
-            <div class="item item-divider">
-                Declined
-            </div>
-            <a class="item" ng-repeat="invitee in event.declined">
-                {{invitee.name}}
-            </a>
-        </div>
+        <span ui-view/>
     </ion-content>
 </ion-view>

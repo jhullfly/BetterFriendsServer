@@ -3,30 +3,36 @@
 </ion-header-bar>
 <ion-view title="Better Friends">
     <ion-content class="register padding">
-        <h1 class="text-center">About You</h1>
-        <div class="list">
-            <div class="item item-input-inset">
-                <label class="item-input-wrapper">
-                    <input type="text" placeholder="Name" ng-model="data.name">
+        <!-- <i class="icon-large icon ion-loading-a" ng-show="loading"></i> -->
+        <span ng-hide="loading">
+            <h1 class="text-center">About You</h1>
+            <div class="list">
+                <label class="item item-input-inset item-stacked-label">
+                    <span class="input-label">Name</span>
+                    <label class="item-input-wrapper">
+                        <input type="text" ng-model="data.name">
+                    </label>
+                    <!-- <i class="icon ion-information-circled placeholder-icon" ng-click="openNamePopover($event)" ></i> -->
                 </label>
-                <i class="icon ion-information-circled placeholder-icon" ng-click="openNamePopover($event)" ></i>
-            </div>
-            <div class="item item-input-inset">
-                <label class="item-input-wrapper">
-                    <input type="tel" placeholder="Phone Number" ng-model="data.phoneNumber">
+                <label class="item item-input-inset item-stacked-label">
+                    <span class="input-label">Phone Number</span>
+                    <label ng-hide="verified" class="item-input-wrapper">
+                        <input type="tel" ng-model="data.phoneNumber">
+                    </label>
+                    <div class="item-input-noedit" ng-show="verified">{{data.phoneNumber | tel}}</div>
+                    <!-- <i class="icon ion-information-circled placeholder-icon" ng-click="openPhonePopover($event)" ></i> -->
                 </label>
-                <i class="icon ion-information-circled placeholder-icon" ng-click="openPhonePopover($event)" ></i>
             </div>
-        </div>
-        <p ng-hide="errorMessage">That's it!  This is all the info we need to help you start planning.  If you like the app,
-            you can add a profile photo later in the Account section.</p>
-        <p class="assertive" ng-show="errorMessage">{{errorMessage}}</p>
-        <button class="button button-balanced" ng-click="register()" ng-hide="processing">
-            Next
-        </button>
-        <button class="disabled button button-balanced" ng-show="processing">
-            <i class="icon ion-loading-a"></i>
-        </button>
+            <p ng-hide="errorMessage">That's it!  This is all the info we need to help you start planning.  If you like the app,
+                you can add a profile photo later in the Account section.</p>
+            <p class="assertive" ng-show="errorMessage">{{errorMessage}}</p>
+            <button class="button button-balanced" ng-click="register()" ng-hide="processing">
+                Next
+            </button>
+            <button class="disabled button button-balanced" ng-show="processing">
+                <i class="icon ion-loading-a"></i>
+            </button>
+        </span>
     </ion-content>
 </ion-view>
 

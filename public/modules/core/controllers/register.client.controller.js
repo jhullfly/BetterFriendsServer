@@ -35,6 +35,7 @@ angular.module('core').controller('RegisterController', ['$scope', '$state', '$i
 
     $scope.data = {name:'', phoneNumber:''};
     $scope.processing = false;
+    $scope.verified = false;
     $scope.register = function() {
       $scope.processing = true;
       Auth.sendConfirmCode($scope.data.name, $scope.data.phoneNumber).then(function () {

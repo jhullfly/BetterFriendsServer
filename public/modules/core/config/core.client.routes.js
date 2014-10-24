@@ -21,6 +21,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/register.client.view.html',
         controller: 'RegisterController'
       })
+      .state('registerVerified', {
+        url: '/registerVerified/:eid/:inviteCode',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/register.client.view.html',
+        controller: 'RegisterVerifiedController'
+      })
       .state('verify', {
         url: '/verify',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/verify.client.view.html',
@@ -37,22 +42,28 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         controller: 'HomeController',
         authenticated: true
       })
-      .state('invite', {
-        url: '/invite',
-        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/invite.client.view.html',
-        controller: 'InviteController',
-        authenticated: true
-      })
-      .state('compose', {
-        url: '/compose',
-        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/compose.client.view.html',
-        controller: 'ComposeController',
-        authenticated: true
-      })
       .state('event', {
         url: '/event/:eid',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/event.client.view.html',
         controller: 'EventController',
+        authenticated: true,
+        abstract: true
+      })
+      .state('event.detail', {
+        url: '/detail',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/event.detail.client.view.html',
+        authenticated: true
+      })
+      .state('event.invite', {
+        url: '/invite',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/event.invite.client.view.html',
+        controller: 'InviteController',
+        authenticated: true
+      })
+      .state('event.compose', {
+        url: '/compose',
+        templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/event.compose.client.view.html',
+        controller: 'ComposeController',
         authenticated: true
       });
 

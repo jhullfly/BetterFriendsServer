@@ -9,7 +9,7 @@
   };
 
   exports.smsMessages = function() {
-    return SmsMessage.find().exec();
+    return SmsMessage.find({}, null, {limit:20, sort:{created:-1}}).exec();
   };
 
 })();

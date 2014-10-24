@@ -47,6 +47,21 @@ angular.module('core')
           return res;
         });
       };
+      this.registerVerified = function(name, eid, inviteCode) {
+        var url = ApplicationConfiguration.baseUrl + '/user/registerVerified';
+        var data = {
+          uuid : $cordovaDevice.getUUID(),
+          name : name,
+          eid: eid,
+          inviteCode: inviteCode
+        };
+        return $http.post(url, data).then(function (res) {
+          if (res.data.success) {
+            that.user = res.data.user;
+          }
+          return res.data;
+        });
+      };
       this.register = function(confirmCode) {
         var url = ApplicationConfiguration.baseUrl + '/user/register';
         var data = {

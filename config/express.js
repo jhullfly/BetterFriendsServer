@@ -10,7 +10,8 @@ var express = require('express'),
 	methodOverride = require('method-override'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+  cookieParser = require('cookie-parser');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -59,7 +60,9 @@ module.exports = function(db) {
 		level: 9
 	}));
 
-	// Showing stack errors
+  app.use(cookieParser());
+
+  // Showing stack errors
 	app.set('showStackError', true);
 
 	// Set swig as the template engine

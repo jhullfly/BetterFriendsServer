@@ -1,0 +1,26 @@
+<div class="list list-inset">
+    Invite two friends: {{ newInvites[0].name.formatted }}
+    <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="data.searchString" />
+    </label>
+</div>
+<div class="list" ng-show="contacts">
+    <div class="invite-item item item-button-right" ng-repeat="contact in contacts | orderBy : 'name.formatted' | filter : {name:data.searchString}">
+        <h2>
+            {{contact.name.formatted}}
+            <span ng-show="contact.phoneNumber.displayType" class="phoneType">({{contact.phoneNumber.displayType}})</span>
+        </h2>
+        <p>{{contact.phoneNumber.cleanedValue | tel}}</p>
+        <button class="button button-balanced" ng-show="!added && !contact.alreadyAdded" ng-click="added=true;addInvite(contact)">
+            invite
+        </button>
+        <button class="button button-assertive" ng-show="added && !contact.alreadyAdded" ng-click="added=false;;removeInvite(contact)">
+            delete
+        </button>
+        <div class="button-replacement" ng-show="contact.alreadyAdded">already invited</p>
+    </div>
+</div>
+<div ng-hide="contacts">
+    Loading Contacts
+</div>

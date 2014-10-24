@@ -14,6 +14,7 @@ module.exports = {
         'public/lib/ionic/css/ionic.css'
       ],
       js: [
+        'public/lib/moment/moment.js',
         'public/lib/lodash/dist/lodash.js',
         'public/lib/ionic/js/ionic.bundle.js'
       ]

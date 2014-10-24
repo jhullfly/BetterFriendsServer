@@ -1,0 +1,22 @@
+<div class="padding">
+    Customize your message:
+    <div class="list">
+        To: {{newInvites[0].name.formatted}}
+        <label class="item item-input">
+            <textarea rows="5" ng-model="message1"></textarea>
+        </label>
+    </div>
+    <div class="list">
+        To: {{newInvites[1].name.formatted}}
+        <label class="item item-input">
+            <textarea rows="5" ng-model="message2"></textarea>
+        </label>
+    </div>
+    <div ng-show="errorMessage" class="assertive">{{errorMessage}}</div>
+    <button class="button button-balanced" ng-click="addInvites()" ng-hide="processing">
+        Send Texts
+    </button>
+    <button class="disabled button button-balanced" ng-show="processing">
+        <i class="icon ion-loading-a"></i>
+    </button>
+</div>

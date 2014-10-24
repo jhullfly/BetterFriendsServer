@@ -7,6 +7,7 @@
     app.route('/user/get/:uuid').get(promiseHandler.handle(users.getUser));
     app.route('/user/sendConfirmCode').post(promiseHandler.handle(users.sendConfirmCode));
     app.route('/user/register').post(promiseHandler.handle(users.register));
+    app.route('/user/registerVerified').post(promiseHandler.handle(users.registerVerified));
   };
 
 })();

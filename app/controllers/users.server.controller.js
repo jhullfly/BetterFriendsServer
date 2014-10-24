@@ -3,9 +3,11 @@
 
   var Q = require('q');
   var mongoose = require('mongoose');
+  var _ = require('lodash');
   var sms = require('./sms');
   var RandomString = require('./randomString');
   var User = mongoose.model('User');
+  var Event = mongoose.model('Event');
   var UnconfirmedUser = mongoose.model('UnconfirmedUser');
 
   function cleanPhone(phone) {
@@ -86,6 +88,33 @@
       }
     );
   }
+  exports.registerVerified = function (req) {
+    var eid = req.param('eid');
+    var inviteCode = req.param('inviteCode');
+    var name = req.param('name');
+    var uuid = req.param('uuid');
+    return Event.findById(eid, '+invited.inviteCode').exec().then(function (event) {
+      if (event) {
+        var invitee = _.find(event.invited, function (invite) {
+          return (invite.inviteCode === inviteCode);
+        });
+        if (invitee) {
+          var unuser = {
+            uuid:uuid,
+            phoneNumber:invitee.phoneNumber,
+            name:name
+          };
+          return confirmUser(unuser).then(function (user) {
+            return {success:true, user:user};
+          });
+        } else {
+          return Q.reject('invalid inviteCode "'+inviteCode+'"');
+        }
+      } else {
+        return Q.reject('unknown event id "'+eid+'"');
+      }
+    });
+  };
 
   exports.register = function (req) {
     var uuid = req.param('uuid');

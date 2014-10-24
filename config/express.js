@@ -27,6 +27,7 @@ module.exports = function(db) {
 	app.locals.keywords = config.app.keywords;
 	app.locals.jsFiles = config.getJavaScriptAssets();
 	app.locals.cssFiles = config.getCSSAssets();
+  app.locals.baseUrl = config.baseUrl;
 
   // allow cross domain stuff.
   app.use(function(req, res, next) {

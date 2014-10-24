@@ -10,8 +10,7 @@ var express = require('express'),
 	methodOverride = require('method-override'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path'),
-  cookieParser = require('cookie-parser');
+	path = require('path');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -59,8 +58,6 @@ module.exports = function(db) {
 		},
 		level: 9
 	}));
-
-  app.use(cookieParser());
 
   // Showing stack errors
 	app.set('showStackError', true);

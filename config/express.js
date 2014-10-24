@@ -97,6 +97,13 @@ module.exports = function(db) {
 
 	app.disable('x-powered-by');
 
+  // disable caching for now.
+  //TODO: should do this in a more generic way
+  app.get(['/event/*','/user/*','/auth/*','/configuration'], function(req, res, next){
+    res.setHeader('Last-Modified', (new Date()).toUTCString());
+    next();
+  });
+
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./public')));
 

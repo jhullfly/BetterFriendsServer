@@ -18,9 +18,9 @@
         <button class="button button-assertive" ng-show="added && !contact.alreadyAdded" ng-click="added=false;;removeInvite(contact)">
             delete
         </button>
-        <div class="button-replacement" ng-show="contact.alreadyAdded">already invited</p>
+        <div class="button-replacement" ng-show="contact.alreadyAdded">already invited</div>
     </div>
 </div>
-<div ng-hide="contacts">
-    Loading Contacts
+<div ng-show="status_contacts">
+    {{status_contacts}}
 </div>

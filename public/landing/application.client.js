@@ -44,7 +44,12 @@ angular.module('betterfriendsLanding').controller('AcceptedController', ['$scope
           $window.location.href = 'itms-apps://itunes.apple.com/us/app/facebook/id284882215?mt=8&uo=6';
         }
       }, 500);
-      $window.location.href = 'betterfriends://invitemore?eid=';
+      var data = {
+        eid:$stateParams.eid,
+        inviteCode:$stateParams.inviteCode
+      };
+      var dataString = encodeURIComponent('j:'+JSON.stringify(data));
+      $window.location.href = 'betterfriends://cookiedata?data='+dataString;
     };
     $http.get('/event/get/'+$stateParams.eid+'/'+$stateParams.inviteCode).then(function (res) {
       $scope.event = res.data.event;

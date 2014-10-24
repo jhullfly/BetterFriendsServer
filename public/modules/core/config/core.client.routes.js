@@ -9,32 +9,38 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       .state('loading', {
         url: '/loading',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/loading.client.view.html',
-        controller: 'LoadingController'
+        controller: 'LoadingController',
+        authenticated: false
       })
       .state('welcome', {
         url: '/welcome',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/welcome.client.view.html',
-        controller: 'WelcomeController'
+        controller: 'WelcomeController',
+        authenticated: false
       })
       .state('register', {
         url: '/register',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/register.client.view.html',
-        controller: 'RegisterController'
+        controller: 'RegisterController',
+        authenticated: false
       })
       .state('registerVerified', {
         url: '/registerVerified/:eid/:inviteCode',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/register.client.view.html',
-        controller: 'RegisterVerifiedController'
+        controller: 'RegisterVerifiedController',
+        authenticated: false
       })
       .state('verify', {
         url: '/verify',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/verify.client.view.html',
-        controller: 'VerifyController'
+        controller: 'VerifyController',
+        authenticated: false
       })
       .state('verifying', {
         url: '/verifying/:confirmCode',
         templateUrl: ApplicationConfiguration.baseUrl + '/modules/core/views/verifying.client.view.html',
-        controller: 'VerifyingController'
+        controller: 'VerifyingController',
+        authenticated: false
       })
       .state('home', {
         url: '/home',
@@ -77,6 +83,9 @@ angular.module('core')
       if (toState.authenticated && Auth.user === null){
         // User isn’t authenticated
         $state.go('loading');
+        event.preventDefault();
+      } else if (!toState.authenticated && Auth.user !== null) {
+        $state.go('home');
         event.preventDefault();
       }
     });

@@ -29,7 +29,7 @@ angular.module('core').controller('RegisterVerifiedController', ['$scope', '$sta
       }, function (err) {
         $scope.loading = false;
         console.log(err);
-        $state.go('home');
+        $state.go('register');
       });
     };
 
@@ -48,5 +48,15 @@ angular.module('core').controller('RegisterVerifiedController', ['$scope', '$sta
     $scope.verified = true;
     $scope.loading = false;
     $scope.processing = false;
-    $scope.getNameAndPhone();
+    Auth.authenticate().then(function (user) {
+      if (user) {
+        $state.go('home');
+      } else {
+        $scope.getNameAndPhone();
+      }
+    }, function (err) {
+      $scope.loading = false;
+      console.log(err);
+      $state.go('register');
+    });
   }]);

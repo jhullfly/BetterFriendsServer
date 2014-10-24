@@ -8,7 +8,7 @@
         Attending
     </div>
     <a class="item" ng-repeat="invitee in event.attending">
-        {{invitee.name}} accepted on {{invitee.repliedOn | date : 'EEE h a'}}
+        {{invitee.name}} accepted on {{invitee.repliedOn | date : 'EEE h:mm a'}}
     </a>
     <div class="item item-divider">
         Invited (no response yet)
